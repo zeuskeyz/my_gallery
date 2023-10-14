@@ -2,11 +2,10 @@ const next = document.querySelector('#next') //gets hold of the next button
 const prev = document.querySelector('#prev') //gets hold of the prev button
 const pic = document.querySelector('#pic') //gets hold of the image pane
 const caption = document.querySelector('#caption')
+let counter = 0 //variable that keeps count of the iterations done so far
 
-//variable that keeps count of the iterations done so far
-let counter = 0
-//contains an array of all the images to be displayed
-const capDict = {
+//contains a js object with all the images to be displayed
+const myPics = {
     'image_1.jpg' : 'The beach front view',
     'image_2.jpg' : 'The river end pyramid house',
     'image_3.jpg' : 'The laughing black proffessor',
@@ -25,20 +24,23 @@ const capDict = {
     'image_16.jpg' : 'Salhans face'
 }
 
-//handles the display of the next image
-const nextFunc = () => {
-    counter++; 
-    counter < Object.keys(capDict).length ? pic.setAttribute('src', `/code-images/${Object.keys(capDict)[counter]}`) : counter = 0; pic.setAttribute('src', `/code-images/${Object.keys(capDict)[counter]}`);
-    caption.textContent = capDict[Object.keys(capDict)[counter]]
-}
+//toggles the display between the next and previous images
+const picToggler = (event) => {
 
-//handles the display of the previous images
-const prevFunc = () => {
-    counter--;
-    counter >= 0 ? pic.setAttribute('src', `/code-images/${Object.keys(capDict)[counter]}`) : counter = Object.keys(capDict).length - 1; pic.setAttribute('src', `/code-images/${Object.keys(capDict)[counter]}`);
-    caption.textContent = capDict[Object.keys(capDict)[counter]]
+    if(event.target.id === 'next'){
+        counter++; 
+        counter < Object.keys(myPics).length ? pic.setAttribute('src', `/code-images/${Object.keys(myPics)[counter]}`) : counter = 0; pic.setAttribute('src', `/code-images/${Object.keys(myPics)[counter]}`);
+        caption.textContent = myPics[Object.keys(myPics)[counter]]
+    }
+
+    else if(event.target.id === 'prev'){
+        counter--;
+        counter >= 0 ? pic.setAttribute('src', `/code-images/${Object.keys(myPics)[counter]}`) : counter = Object.keys(myPics).length - 1; pic.setAttribute('src', `/code-images/${Object.keys(myPics)[counter]}`);
+        caption.textContent = myPics[Object.keys(myPics)[counter]]
+    }
+
 }
 
 //adds an event listener to the navigation buttons
-next.addEventListener('click', nextFunc)
-prev.addEventListener('click', prevFunc)
+next.addEventListener('click', picToggler)
+prev.addEventListener('click', picToggler)
