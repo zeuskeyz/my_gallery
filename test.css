@@ -1,0 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Onest:wght@500&family=Roboto&display=swap");
+#appName {
+  font-family: "Onest", sans-serif;
+}
+
+#caption,
+#prev,
+#next {
+  font-family: "Roboto", sans-serif;
+}
